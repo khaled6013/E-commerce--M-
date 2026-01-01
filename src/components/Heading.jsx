@@ -4,16 +4,13 @@ import { MdOutlineWifiCalling3 } from "react-icons/md";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { RiShoppingCartLine } from "react-icons/ri";
 
-
-
-
 const Heading = () => {
     return (
         <>
             <div className="py-2 bg-[#7E33E0]">
-                <div className="lg:w-11/12 w-10/12 mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-6 text-white text-sm">
+                <div className="lg:w-11/12 w-[95%] sm:w-10/12 mx-auto">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
+                        <div className="flex items-center gap-2 sm:gap-6 text-white text-[14px] sm:text-[16px] font-josefin">
                             <div className="flex items-center gap-2">
                                 <MdOutlineMail />
                                 <p>mhhasanul@gmail.com</p>
@@ -23,16 +20,16 @@ const Heading = () => {
                                 <p>(12345)67890</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-5 text-white text-sm">
-                            <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-4 sm:gap-5 text-white text-[14px] sm:text-[16px] font-josefin">
+                            <div className="flex items-center gap-2 cursor-pointer">
                                 <p>Login</p>
                                 <FaRegUser />
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 cursor-pointer">
                                 <p>Wishlist</p>
                                 <MdOutlineFavoriteBorder />
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 cursor-pointer">
                                 <RiShoppingCartLine />
                             </div>
                         </div>
