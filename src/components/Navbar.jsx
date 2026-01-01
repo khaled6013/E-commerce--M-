@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IoIosSearch } from "react-icons/io"; 
 import { HiOutlineMenuAlt3 } from "react-icons/hi"; 
 import { RxCross2 } from "react-icons/rx"; 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     let menu = [
@@ -14,6 +14,7 @@ const Navbar = () => {
         { name: 'Contact', path: '/contact' },
     ];
     const [showMenu, setShowMenu] = useState(false);
+    let location = useLocation();
 
     return (
         <nav className='py-4 bg-white'>
@@ -22,12 +23,12 @@ const Navbar = () => {
                     
                     <div className="flex items-center gap-x-20">
                         <div>
-                            <h2 className='font-josefin text-[34px] text-[#0D0E43] font-bold'>Hekto</h2>
+                            <Link className='font-josefin text-[34px] text-[#0D0E43] font-bold' to='/'>Hekto</Link>
                         </div>
                         <div className="hidden lg:flex items-center gap-x-8">
                             {menu.map((item, index) => (
                                 <div key={index} className='group flex items-center gap-1 cursor-pointer font-josefin text-[16px] hover:text-[#FB2E86] transition-all duration-300'>
-                                   <Link className={`list-none`} to={item.path}>
+                                   <Link className={`list-none ${location.pathname === item.path ? 'text-[#FB2E86]' : ''}`} to={item.path}>
                                         {item.name}
                                    </Link>
                                 </div>
@@ -56,7 +57,7 @@ const Navbar = () => {
                     <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg z-50 flex flex-col px-6 py-6 gap-4 border-t border-gray-200 mt-2 rounded-b-lg">
                          {menu.map((item, index) => (
                              <div key={index} className='flex items-center gap-1 cursor-pointer hover:text-[#FB2E86] transition-colors'>
-                                <Link className={`list-none text-[16px] font-josefin`} to={item.path}>
+                                <Link className={`list-none text-[16px] font-josefin ${location.pathname === item.path ? 'text-[#FB2E86]' : ''}`} to={item.path}>
                                      {item.name}
                                 </Link>
                                
