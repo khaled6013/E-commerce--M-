@@ -17,7 +17,7 @@ const Navbar = () => {
     let location = useLocation();
 
     return (
-        <nav className='py-4 bg-white'>
+        <nav className='lg:py-4 py-2 bg-white'>
             <div className="lg:w-9/12 w-11/12 mx-auto relative">
                 <div className="flex justify-between items-center">
                     
