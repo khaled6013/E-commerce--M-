@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <nav className='py-4 bg-white'>
-            <div className="lg:w-11/12 w-10/12 mx-auto relative">
+            <div className="lg:w-9/12 w-11/12 mx-auto relative">
                 <div className="flex justify-between items-center">
                     
                     <div className="flex items-center gap-x-20">

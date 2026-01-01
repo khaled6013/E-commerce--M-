@@ -8,7 +8,7 @@ const Heading = () => {
     return (
         <>
             <div className="py-2 bg-[#7E33E0]">
-                <div className="lg:w-11/12 w-[95%] sm:w-10/12 mx-auto">
+                <div className="lg:w-9/12 w-[95%] sm:w-10/12 mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
                         <div className="flex items-center gap-2 sm:gap-6 text-white text-[14px] sm:text-[16px] font-josefin">
                             <div className="flex items-center gap-2">
