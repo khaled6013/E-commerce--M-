@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ApiData } from './ContextApi'
+import banImg from '../assets/image/bannerHome.png'
 
 const Banner = () => {
   let data = useContext(ApiData)
@@ -7,7 +8,13 @@ const Banner = () => {
   
   
   return (
-    <div className='py-20 bg-red-400'>Banner</div>
+    <>
+      <section className='w-full'>
+        <div className="">
+          <img className='w-full object-cover' src={banImg} alt="banner" />
+        </div>
+      </section>
+    </>
   )
 }
 
