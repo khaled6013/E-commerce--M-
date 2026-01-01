@@ -2,21 +2,12 @@ import React, { useContext } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import chair from '../assets/image/c.png';
 import { BsCart2 } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { LuZoomIn } from "react-icons/lu";
 import { ApiData } from './ContextApi';
 
 const Featured = () => {
-    // const products = [
-    //     { id: 1, code: "Y523201", price: "$42.00" },
-    //     { id: 2, code: "Y523201", price: "$42.00" },
-    //     { id: 3, code: "Y523201", price: "$42.00" },
-    //     { id: 4, code: "Y523201", price: "$42.00" },
-    //     { id: 5, code: "Y523201", price: "$42.00" },
-    //     { id: 6, code: "Y523201", price: "$42.00" },
-    // ];
     let data = useContext(ApiData);
 
     const settings = {
@@ -60,7 +51,7 @@ const Featured = () => {
     };
 
     return (
-        <section className='py-8 sm:py-20'>
+        <section className='py-8 lg:py-12'>
             <div className="lg:w-9/12 w-11/12 mx-auto">
                 <h2 className='text-[30px] sm:text-[42px] text-center font-josefin text-[#1A0B5B] font-bold mb-10'>Featured Products</h2>
 
