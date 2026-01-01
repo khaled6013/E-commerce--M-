@@ -2,9 +2,17 @@ import React, { useState } from 'react';
 import { IoIosSearch } from "react-icons/io"; 
 import { HiOutlineMenuAlt3 } from "react-icons/hi"; 
 import { RxCross2 } from "react-icons/rx"; 
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    let menu = ['Home', 'Pages', 'Products', 'Blog', 'Shop', 'Contact'];
+    let menu = [
+        { name: 'Home', path: '/' },
+        { name: 'Pages', path: '/pages' },
+        { name: 'Products', path: '/products' },
+        { name: 'Blog', path: '/blog' },
+        { name: 'Shop', path: '/shop' },
+        { name: 'Contact', path: '/contact' },
+    ];
     const [showMenu, setShowMenu] = useState(false);
 
     return (
@@ -19,9 +27,9 @@ const Navbar = () => {
                         <div className="hidden lg:flex items-center gap-x-8">
                             {menu.map((item, index) => (
                                 <div key={index} className='group flex items-center gap-1 cursor-pointer font-josefin text-[16px] hover:text-[#FB2E86] transition-all duration-300'>
-                                   <li className={`list-none`}>
-                                        {item}
-                                   </li>
+                                   <Link className={`list-none`} to={item.path}>
+                                        {item.name}
+                                   </Link>
                                 </div>
                             ))}
                         </div>
@@ -48,9 +56,9 @@ const Navbar = () => {
                     <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg z-50 flex flex-col px-6 py-6 gap-4 border-t border-gray-200 mt-2 rounded-b-lg">
                          {menu.map((item, index) => (
                              <div key={index} className='flex items-center gap-1 cursor-pointer hover:text-[#FB2E86] transition-colors'>
-                                <li className={`list-none text-[16px] font-josefin`}>
-                                     {item}
-                                </li>
+                                <Link className={`list-none text-[16px] font-josefin`} to={item.path}>
+                                     {item.name}
+                                </Link>
                                
                              </div>
                          ))}
