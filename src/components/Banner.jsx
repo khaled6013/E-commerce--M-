@@ -6,7 +6,7 @@ const Banner = () => {
     <>
       <section className='w-full'>
         <div className="">
-          <img className='w-full object-cover' src={banImg} alt="banner" />
+          <img className='w-full object-cover lg:h-175' src={banImg} alt="banner" />
         </div>
       </section>
     </>
