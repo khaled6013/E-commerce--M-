@@ -7,10 +7,9 @@ import { Link, useLocation } from 'react-router-dom';
 const Navbar = () => {
     let menu = [
         { name: 'Home', path: '/' },
-        { name: 'Pages', path: '/pages' },
-        { name: 'Products', path: '/products' },
-        { name: 'Blog', path: '/blog' },
         { name: 'Shop', path: '/shop' },
+        { name: 'Pages', path: '/pages' },
+        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '/contact' },
     ];
     const [showMenu, setShowMenu] = useState(false);
