@@ -49,7 +49,7 @@ const TopCate = () => {
     };
 
     return (
-        <section className='py-12 lg:pb-25 lg:pt-15 bg-white'>
+        <section className='py-12 lg:pb-15 lg:pt-15 bg-white'>
             <div className="lg:w-9/12 w-11/12 mx-auto">
                 <h2 className='text-[30px] sm:text-[42px] text-center font-josefin text-[#151875] font-bold mb-10'>
                     Top Categories

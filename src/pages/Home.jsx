@@ -1,4 +1,5 @@
 import Banner from '../components/Banner'
+import Blog from '../components/Blog'
 import Featured from '../components/Featured'
 import Latest from '../components/Latest'
 import Support from '../components/Support'
@@ -16,6 +17,7 @@ const Home = () => {
             <Unique></Unique>
             <Trending></Trending>
             <TopCate></TopCate>
+            <Blog></Blog>
         </>
     )
 }
