@@ -8,8 +8,8 @@ const Navbar = () => {
     let menu = [
         { name: 'Home', path: '/' },
         { name: 'Shop', path: '/shop' },
-        { name: 'Pages', path: '/pages' },
         { name: 'Blog', path: '/blog' },
+        { name: 'Pages', path: '/pages' },
         { name: 'Contact', path: '/contact' },
     ];
     const [showMenu, setShowMenu] = useState(false);
