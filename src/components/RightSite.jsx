@@ -15,11 +15,22 @@ const RightSite = ({ view, products }) => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const renderStars = () => (
-        <div className="flex text-[#FFC107] text-[12px] gap-1">
-            <FaStar /><FaStar /><FaStar /><FaStar /><FaStar className="text-[#B2B2B2]" />
-        </div>
-    );
+    // Dynamic Star Rendering Logic
+    const renderStars = (rating) => {
+        const validRating = rating || 0;
+        const roundedRating = Math.round(validRating);
+
+        return (
+            <div className="flex text-[12px] gap-1">
+                {Array.from({ length: 5 }, (_, index) => (
+                    <FaStar
+                        key={index}
+                        className={index < roundedRating ? "text-[#FFC107]" : "text-[#B2B2B2]"}
+                    />
+                ))}
+            </div>
+        );
+    };
 
     return (
         <>
@@ -27,6 +38,7 @@ const RightSite = ({ view, products }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {currentItems.length > 0 ? (
                         currentItems.map((item) => {
+                            // Price Calculation
                             const originalPrice = item.price || 0;
                             const discount = item.discountPercentage || 0;
                             const discountAmount = (originalPrice * discount) / 100;
@@ -75,6 +87,7 @@ const RightSite = ({ view, products }) => {
                 <div className="flex flex-col gap-8">
                     {currentItems.length > 0 ? (
                         currentItems.map((item) => {
+                            // Price Calculation
                             const originalPrice = item.price || 0;
                             const discount = item.discountPercentage || 0;
                             const discountAmount = (originalPrice * discount) / 100;
@@ -101,7 +114,7 @@ const RightSite = ({ view, products }) => {
                                                 <span className="text-[#111C85] text-[14px]">${finalPrice.toFixed(2)}</span>
                                                 <span className="text-[#FF2AAA] text-[14px] line-through">${originalPrice.toFixed(2)}</span>
                                             </div>
-                                            {renderStars()}
+                                            {renderStars(item.rating)}
                                         </div>
                                         <p className="font-lato text-[#9295AA] text-[14px] leading-6 mb-4 line-clamp-2 pr-4">
                                             {item.description}
