@@ -1,24 +1,20 @@
-import React, { useContext, useState } from 'react'
-import { ApiData } from './ContextApi';
+import React, { useState, useEffect } from 'react' 
 import { BsCart2 } from "react-icons/bs";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { LuZoomIn } from "react-icons/lu";
 
-const RightSite = ({ view }) => {
-    let data = useContext(ApiData);
-
-    // Pagination State
+const RightSite = ({ view, products }) => { 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // 10 products per page
+    const itemsPerPage = 10; 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [products]);
 
     // Logic for displaying current items
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
-    // Logic for page numbers
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-
+    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem); 
+    const totalPages = Math.ceil(products.length / itemsPerPage);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const renderStars = () => (
@@ -65,7 +61,9 @@ const RightSite = ({ view }) => {
                             </div>
                         ))
                     ) : (
-                        <p>No products found.</p>
+                        <div className="col-span-3 text-center py-10">
+                            <h3 className="text-[#151875] font-josefin text-[20px]">No products found matching your filter.</h3>
+                        </div>
                     )}
                 </div>
             ) : (
@@ -95,7 +93,7 @@ const RightSite = ({ view }) => {
                                         {renderStars()}
                                     </div>
                                     <p className="font-lato text-[#9295AA] text-[14px] leading-6 mb-4 line-clamp-2 pr-4">
-                                        {item.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo."}
+                                        {item.description}
                                     </p>
                                     <div className="flex gap-4">
                                         <div className="w-8 h-8 rounded-full bg-white shadow-md text-[#535399] flex justify-center items-center cursor-pointer hover:bg-[#EEEFFB] transition-colors">
@@ -112,13 +110,15 @@ const RightSite = ({ view }) => {
                             </div>
                         ))
                     ) : (
-                        <p>No products found.</p>
+                         <div className="text-center py-10">
+                            <h3 className="text-[#151875] font-josefin text-[20px]">No products found matching your filter.</h3>
+                        </div>
                     )}
                 </div>
             )}
 
             {/* Pagination Controls */}
-            {data.length > itemsPerPage && (
+            {totalPages > 1 && (
                 <div className="flex justify-center mt-12 mb-4">
                     <div className="flex gap-2">
                         {Array.from({ length: totalPages }, (_, i) => (

@@ -1,10 +1,44 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaTh, FaListUl } from "react-icons/fa";
 import LeftSite from './LeftSite';
 import RightSite from './RightSite';
+import { ApiData } from './ContextApi'; 
 
 const FashionItem = () => {
-    const [view, setView] = useState('grid'); 
+    const [view, setView] = useState('grid');
+    const data = useContext(ApiData);
+    const [selectedBrand, setSelectedBrand] = useState('all');
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedPrice, setSelectedPrice] = useState('all');
+
+    // Filter Logic
+    let filteredProducts = data;
+    if (selectedBrand !== 'all') {
+        filteredProducts = filteredProducts.filter(item => item.brand === selectedBrand);
+    }
+    if (selectedCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(item => item.category === selectedCategory);
+    }
+    if (selectedPrice !== 'all') {
+        filteredProducts = filteredProducts.filter(item => {
+            if (selectedPrice === 1) return item.price >= 0 && item.price <= 150;
+            if (selectedPrice === 2) return item.price > 150 && item.price <= 350;
+            if (selectedPrice === 3) return item.price > 350 && item.price <= 500;
+            if (selectedPrice === 4) return item.price > 500;
+            return true;
+        });
+    }
+    const handleBrandChange = (brand) => {
+        setSelectedBrand(brand === selectedBrand ? 'all' : brand);
+    };
+
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category === selectedCategory ? 'all' : category);
+    };
+
+    const handlePriceChange = (priceId) => {
+        setSelectedPrice(priceId === selectedPrice ? 'all' : priceId);
+    };
 
     return (
         <section className='py-12 lg:py-20 bg-white'>
@@ -15,28 +49,13 @@ const FashionItem = () => {
                             Ecommerce Accessories & Fashion item
                         </h2>
                         <p className='text-[#8A8FB9] font-lato text-[12px]'>
-                            About 9,620 results (0.62 seconds)
+                            About {filteredProducts.length} results
                         </p>
                     </div>
                     <div className="flex flex-wrap justify-center sm:justify-end items-center gap-4 sm:gap-6">
                         <div className="flex items-center gap-2">
                             <label htmlFor="perPage" className='text-[#3F509E] font-lato text-[16px]'>Per Page:</label>
-                            <select name="perPage" id="perPage" className='w-13.75 h-6.25 border border-[#E7E6EF] outline-none px-2 text-[#8A8FB9] text-[12px] focus:border-[#FB2E86] transition-colors'>
-                                <option value="12">10</option>
-                                <option value="24">20</option>
-                                <option value="36">30</option>
-                            </select>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <label htmlFor="sortBy" className='text-[#3F509E] font-lato text-[16px]'>Sort By:</label>
-                            <select
-                                id="sortBy"
-                                className='h-7 border border-[#E7E6EF] outline-none px-2 text-[#8A8FB9] text-[12px] bg-white cursor-pointer focus:border-[#FB2E86] transition-colors'
-                            >
-                                <option value="best-match">Best Match</option>
-                                <option value="newest">Newest</option>
-                                <option value="price-low">Price: Low to High</option>
-                            </select>
+                            <input type="text" className='w-14 h-6 border border-[#E7E6EF] outline-none px-2 text-[#8A8FB9] text-[12px]' />
                         </div>
                         <div className="flex items-center gap-2">
                             <span className='text-[#3F509E] font-lato text-[16px]'>View:</span>
@@ -53,23 +72,25 @@ const FashionItem = () => {
                                 />
                             </div>
                         </div>
-
-                        <div className="">
-                            <input
-                                type="text"
-                                className='w-30 sm:w-40 h-7.5 border border-[#E7E6EF] outline-none px-2 focus:border-[#FB2E86] transition-colors'
-                            />
-                        </div>
                     </div>
                 </div>
+
+                {/* Main Content */}
                 <div className="lg:mt-10 mt-6">
                   <div className="lg:flex gap-5">
                      <div className="lg:w-2/10 w-full">
-                       <LeftSite></LeftSite>
+                       <LeftSite 
+                            selectedBrand={selectedBrand}
+                            handleBrandChange={handleBrandChange}
+                            selectedCategory={selectedCategory}
+                            handleCategoryChange={handleCategoryChange}
+                            selectedPrice={selectedPrice}
+                            handlePriceChange={handlePriceChange}
+                       />
                      </div>
-                     <div className="w-8/10">
-                       {/* Passing the view state to RightSite */}
-                       <RightSite view={view}></RightSite>
+                     <div className="lg:w-8/10">
+                       {/* Pass filtered products to RightSite */}
+                       <RightSite view={view} products={filteredProducts} />
                      </div>
                   </div>
                 </div>
