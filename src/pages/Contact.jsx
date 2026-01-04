@@ -1,8 +1,13 @@
 import React from 'react'
+import ConBanner from '../components/ConBanner'
+import ContactIn from '../components/ContactIn'
 
 const Contact = () => {
   return (
-    <div>Contact</div>
+    <>
+      <ConBanner></ConBanner>
+      <ContactIn></ContactIn>
+    </>
   )
 }
 
