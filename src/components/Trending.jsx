@@ -3,6 +3,7 @@ import t1 from '../assets/image/t1.png'
 import t2 from '../assets/image/t2.png'
 import t3 from '../assets/image/t3.png'
 import { ApiData } from './ContextApi'
+import { Link } from 'react-router-dom'
 
 const Trending = () => {
     let data = useContext(ApiData);
@@ -20,7 +21,7 @@ const Trending = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                     {data.slice(10, 14).map((item) => (
-                        <div key={item.id} className="p-3 bg-white shadow-[0px_8px_40px_0px_rgba(49,32,138,0.05)] flex flex-col items-center group transition-all duration-300 hover:shadow-lg">
+                        <Link to={`/productsDetails/${item.id}`} key={item.id} className="p-3 bg-white shadow-[0px_8px_40px_0px_rgba(49,32,138,0.05)] flex flex-col items-center group transition-all duration-300 hover:shadow-lg">
                             <div className='w-full bg-[#F5F6F8] flex justify-center items-center py-6 mb-4 relative overflow-hidden'>
                                 <img src={item.thumbnail} alt={item.title} className='w-40 h-40 object-contain group-hover:scale-110 transition-transform duration-300' />
                             </div>
@@ -29,7 +30,7 @@ const Trending = () => {
                                 <span className='text-[#151875]'>${item.price}</span>
 
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -3,15 +3,16 @@ import { ApiData } from './ContextApi';
 import { BsCart2 } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { LuZoomIn } from "react-icons/lu";
+import { Link } from 'react-router-dom';
 
 const Latest = () => {
     let data = useContext(ApiData);
     const [activeTab, setActiveTab] = useState('New Arrival');
     const allProducts = {
-        'New Arrival': data.slice(0, 6),  
+        'New Arrival': data.slice(0, 6),
         'Best Seller': data.slice(6, 12),
-        'Featured': data.slice(12, 18), 
-        'Special Offer': data.slice(18, 24) 
+        'Featured': data.slice(12, 18),
+        'Special Offer': data.slice(18, 24)
     };
 
     const tabs = ['New Arrival', 'Best Seller', 'Featured', 'Special Offer'];
@@ -31,8 +32,8 @@ const Latest = () => {
                             onClick={() => setActiveTab(tab)}
                             className={`font-lato text-[16px] sm:text-[18px] font-medium transition-all duration-300 pb-1
                                 ${activeTab === tab
-                                    ? 'text-[#FB2E86] underline underline-offset-4' 
-                                    : 'text-[#151875] hover:text-[#FB2E86]' 
+                                    ? 'text-[#FB2E86] underline underline-offset-4'
+                                    : 'text-[#151875] hover:text-[#FB2E86]'
                                 }`}
                         >
                             {tab}
@@ -49,13 +50,13 @@ const Latest = () => {
 
                             return (
                                 <div key={item.id} className="group w-full bg-white relative shadow-none hover:shadow-[0px_8px_40px_0px_rgba(49,32,138,0.05)] transition-shadow duration-300">
-                                    
+
                                     <div className="w-full h-75 bg-[#F7F7F7] group-hover:bg-white flex justify-center items-center relative transition-colors duration-300 overflow-hidden rounded-t-md">
-                                        
+
                                         <div className="absolute left-3 bottom-8 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:bottom-12 z-10">
-                                            <div className="w-9 h-9 rounded-full bg-transparent hover:bg-[#EEEFFB] text-[#2F1AC4] hover:text-[#FB2E86] flex justify-center items-center cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-transparent hover:border-[#EEEFFB]">
+                                            <Link to={`/productsDetails/${item.id}`} className="w-9 h-9 rounded-full bg-transparent hover:bg-[#EEEFFB] text-[#2F1AC4] hover:text-[#FB2E86] flex justify-center items-center cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-transparent hover:border-[#EEEFFB]">
                                                 <BsCart2 size={18} />
-                                            </div>
+                                            </Link>
                                             <div className="w-9 h-9 rounded-full bg-transparent hover:bg-[#EEEFFB] text-[#2F1AC4] hover:text-[#FB2E86] flex justify-center items-center cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-transparent hover:border-[#EEEFFB]">
                                                 <FaRegHeart size={16} />
                                             </div>
@@ -63,7 +64,9 @@ const Latest = () => {
                                                 <LuZoomIn size={18} />
                                             </div>
                                         </div>
-                                        <img src={item.thumbnail} alt={item.title} className="w-50 h-50 object-contain p-2 group-hover:scale-105 transition-transform duration-300" />
+                                        <Link to={'shop'}>
+                                            <img src={item.thumbnail} alt={item.title} className="w-50 h-50 object-contain p-2 group-hover:scale-105 transition-transform duration-300" />
+                                        </Link>
                                     </div>
                                     <div className="py-4 flex justify-between items-end bg-white rounded-b-md px-2">
                                         <h3 className="font-josefin text-[#151875] text-[16px] font-bold border-b-2 border-[#EEEFFB] pb-1 pr-1 truncate w-[60%]">

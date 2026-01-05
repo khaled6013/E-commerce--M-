@@ -6,6 +6,7 @@ import { BsCart2 } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { LuZoomIn } from "react-icons/lu";
 import { ApiData } from './ContextApi';
+import { Link } from 'react-router-dom';
 
 const Featured = () => {
     let data = useContext(ApiData);
@@ -62,9 +63,9 @@ const Featured = () => {
                                 <div className="w-full h-59 bg-[#F6F7FB] flex justify-center items-center relative overflow-hidden">
 
                                     <div className="absolute top-3 left-3 flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-full group-hover:translate-x-0 z-10">
-                                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#1389FF] hover:text-[#151875] hover:bg-[#EEEFFB] cursor-pointer bg-transparent border border-transparent hover:border-[#EEEFFB]">
+                                        <Link to={`/productsDetails/${item.id}`} className="w-8 h-8 rounded-full flex items-center justify-center text-[#1389FF] hover:text-[#151875] hover:bg-[#EEEFFB] cursor-pointer bg-transparent border border-transparent hover:border-[#EEEFFB]">
                                             <BsCart2 size={18} />
-                                        </div>
+                                        </Link>
                                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#1389FF] hover:text-[#151875] hover:bg-[#EEEFFB] cursor-pointer bg-transparent">
                                             <FaRegHeart size={16} />
                                         </div>
@@ -73,9 +74,9 @@ const Featured = () => {
                                         </div>
                                     </div>
                                     <img src={item.thumbnail} alt="chair" className='w-38.5 sm:w-30.5 group-hover:scale-110 transition-all duration-300' />
-                                    <button className="absolute bottom-4 left-[50%] -translate-x-[50%] bg-[#08D15F] text-white font-josefin text-[12px] px-4 py-2 rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-full group-hover:translate-y-0 hover:bg-[#07b552] cursor-pointer">
+                                    <Link to={`/productsDetails/${item.id}`} className="absolute bottom-4 left-[50%] -translate-x-[50%] bg-[#08D15F] text-white font-josefin text-[12px] px-4 py-2 rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-full group-hover:translate-y-0 hover:bg-[#07b552] cursor-pointer">
                                         View Details
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div className="bg-white group-hover:bg-[#2F1AC4] p-4 flex flex-col items-center gap-3 transition-colors duration-300 border-t border-transparent group-hover:border-[#2F1AC4]">
                                     <h3 className="font-josefin text-[18px] font-bold text-[#FB2E86] group-hover:text-white transition-colors">{item.title}</h3>

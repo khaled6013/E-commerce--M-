@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ApiData } from './ContextApi';
 import mestoni from '../assets/image/mestoni.png';
+import { Link } from 'react-router-dom';
 
 const TopCate = () => {
     let data = useContext(ApiData);
@@ -64,9 +65,9 @@ const TopCate = () => {
                                     
                                     <img src={item.thumbnail} alt={item.title} className="w-24 sm:w-32 object-contain" />
                                     <div className="absolute bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                        <button className="bg-[#08D15F] text-white font-josefin text-[12px] px-3 py-1.5 rounded-xs cursor-pointer hover:bg-[#06b853]">
+                                        <Link to={'shop'} className="bg-[#08D15F] text-white font-josefin text-[12px] px-3 py-1.5 rounded-xs cursor-pointer hover:bg-[#06b853]">
                                             View Shop
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="text-center mt-6">

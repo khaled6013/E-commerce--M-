@@ -50,7 +50,7 @@ const RightSite = ({ view, products }) => {
                                     <div className="w-full h-65 bg-[#F6F7FB] flex justify-center items-center relative overflow-hidden group-hover:bg-[#EBF4F3] transition-colors">
                                         <img src={item.thumbnail} alt={item.title} className="w-45 h-45 object-contain group-hover:scale-110 transition-transform duration-300" />
                                         <div className="absolute left-3 bottom-8 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-full group-hover:translate-x-0">
-                                            <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#151875] hover:bg-white cursor-pointer transition-colors">
+                                            {/* <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#151875] hover:bg-white cursor-pointer transition-colors">
                                                 <BsCart2 size={16} />
                                             </div>
                                             <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#151875] hover:bg-white cursor-pointer transition-colors">
@@ -58,7 +58,7 @@ const RightSite = ({ view, products }) => {
                                             </div>
                                             <div className="w-8 h-8 rounded-full flex items-center justify-center text-[#151875] hover:bg-white cursor-pointer transition-colors">
                                                 <FaRegHeart size={15} />
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="py-4 text-center">
@@ -96,9 +96,9 @@ const RightSite = ({ view, products }) => {
 
                             return (
                                 <div key={item.id} className="group w-full flex flex-col sm:flex-row gap-6 p-4 bg-white shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="w-full sm:w-1/3 lg:w-75 h-52 bg-[#F6F7FB] flex justify-center items-center shrink-0">
+                                    <Link to={`/productsDetails/${item.id}`} className="w-full sm:w-1/3 lg:w-75 h-52 bg-[#F6F7FB] flex justify-center items-center shrink-0">
                                         <img src={item.thumbnail} alt={item.title} className="w-40 h-40 object-contain group-hover:scale-105 transition-transform duration-300" />
-                                    </div>
+                                    </Link>
                                     <div className="flex flex-col justify-center w-full">
                                         <div className="flex items-center gap-4 mb-3">
                                             <h3 className="font-josefin text-[#111C85] text-[18px] font-bold">
@@ -121,9 +121,9 @@ const RightSite = ({ view, products }) => {
                                             {item.description}
                                         </p>
                                         <div className="flex gap-4">
-                                            <div className="w-8 h-8 rounded-full bg-white shadow-md text-[#535399] flex justify-center items-center cursor-pointer hover:bg-[#EEEFFB] transition-colors">
+                                            <Link to={`/productsDetails/${item.id}`} className="w-8 h-8 rounded-full bg-white shadow-md text-[#535399] flex justify-center items-center cursor-pointer hover:bg-[#EEEFFB] transition-colors">
                                                 <BsCart2 size={16} />
-                                            </div>
+                                            </Link>
                                             <div className="w-8 h-8 rounded-full bg-white shadow-md text-[#535399] flex justify-center items-center cursor-pointer hover:bg-[#EEEFFB] transition-colors">
                                                 <FaRegHeart size={15} />
                                             </div>
