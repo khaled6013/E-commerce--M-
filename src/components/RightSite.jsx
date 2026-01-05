@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BsCart2 } from "react-icons/bs";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { LuZoomIn } from "react-icons/lu";
+import { Link } from 'react-router-dom';
 
 const RightSite = ({ view, products }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +46,7 @@ const RightSite = ({ view, products }) => {
                             const finalPrice = originalPrice - discountAmount;
 
                             return (
-                                <div key={item.id} className="group w-full bg-white shadow-none hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                                <Link to={`/productsDetails/${item.id}`} key={item.id} className="group w-full bg-white shadow-none hover:shadow-lg transition-shadow duration-300 overflow-hidden">
                                     <div className="w-full h-65 bg-[#F6F7FB] flex justify-center items-center relative overflow-hidden group-hover:bg-[#EBF4F3] transition-colors">
                                         <img src={item.thumbnail} alt={item.title} className="w-45 h-45 object-contain group-hover:scale-110 transition-transform duration-300" />
                                         <div className="absolute left-3 bottom-8 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-full group-hover:translate-x-0">
@@ -74,7 +75,7 @@ const RightSite = ({ view, products }) => {
                                             <span className="text-[#FB2E86] text-[14px] line-through">${originalPrice.toFixed(2)}</span>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })
                     ) : (
