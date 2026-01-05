@@ -1,8 +1,13 @@
 import React from 'react'
+import FaqBanner from '../components/FaqBanner'
+import FaqM from '../components/FaqM'
 
 const Faq = () => {
   return (
-    <div>Faq</div>
+    <>
+     <FaqBanner></FaqBanner>
+     <FaqM></FaqM>
+    </>
   )
 }
 

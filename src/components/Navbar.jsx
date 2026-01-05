@@ -10,8 +10,8 @@ const Navbar = () => {
         { name: 'Home', path: '/' },
         { name: 'Shop', path: '/shop' },
         { name: 'Blog', path: '/blog' },
-        { name: 'Pages', path: '/pages' },
         { name: 'Faq', path: '/faq' },
+        { name: 'Pages', path: '/pages' },
         { name: 'Contact', path: '/contact' },
     ];
     const [showMenu, setShowMenu] = useState(false);
