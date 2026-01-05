@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaStar, FaHeart } from "react-icons/fa";
 
 const ProductsD = () => {
@@ -91,9 +91,9 @@ const ProductsD = () => {
 
                             {/* Add To Cart Section */}
                             <div className="flex items-center gap-6 mb-8">
-                                <button className="text-[#151875] font-josefin font-bold text-[16px] px-8 py-3 bg-transparent border  border-[#151875] hover:bg-[#FB2E86] hover:text-[#FFFF] transition-all duration-300 shadow-none cursor-pointer">
+                                <Link to={'/cart'} className="text-[#151875] font-josefin font-bold text-[16px] px-8 py-3 bg-transparent border  border-[#151875] hover:bg-[#FB2E86] hover:text-[#FFFF] transition-all duration-300 shadow-none cursor-pointer">
                                     Add To Cart
-                                </button>
+                                </Link>
                                 <button className="text-[#151875] hover:text-[#FB2E86] transition-colors cursor-pointer">
                                     <FaHeart size={20} />
                                 </button>
