@@ -113,6 +113,38 @@ const ProductsD = () => {
                         </div>
                     </div>
                 </div>
+                <div className="lg:mt-10 mt-5">
+                    <div className="lg:w-9/12 w-11/12 mx-auto p-4 lg:p-10 bg-white shadow-[0px_0px_25px_10px_#F6F4FD]">
+                        <h3 className="text-[#0D134E] font-josefin font-bold text-2xl mb-6">Reviews</h3>
+
+                        <div className="flex flex-col gap-8">
+                            {singleProduct.reviews && singleProduct.reviews.length > 0 ? (
+                                singleProduct.reviews.map((review, index) => (
+                                    <div key={index} className="border-b border-[#E0D3F5] pb-6 last:border-0 last:pb-0">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                            <div className="flex items-center gap-4">
+                                                <h4 className="text-[#151875] font-josefin font-bold text-[18px] capitalize">
+                                                    {review.reviewerName}
+                                                </h4>
+                                                <span className="text-[#A9ACC6] font-lato text-[14px]">
+                                                    {new Date(review.date).toDateString()}
+                                                </span>
+                                            </div>
+                                            <div className="mt-2 sm:mt-0">
+                                                {renderStars(review.rating)}
+                                            </div>
+                                        </div>
+                                        <p className="text-[#A9ACC6] font-lato text-[16px] leading-7 mt-2">
+                                            {review.comment}
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-[#151875] font-lato text-[16px]">No reviews yet.</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )
