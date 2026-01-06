@@ -32,10 +32,12 @@ export const productSlice = createSlice({
         state.carItem[findIndex].quantity--
       }
     },
+    clearCart: (state) => {
+      state.carItem = []
+    },
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { AllProducts, RemoveItem, increaseQuantity, decreaseQuantity } = productSlice.actions
+export const { AllProducts, RemoveItem, increaseQuantity, decreaseQuantity, clearCart } = productSlice.actions
 
 export default productSlice.reducer

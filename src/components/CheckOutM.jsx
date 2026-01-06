@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; 
 import { Link } from 'react-router-dom';
 import { RxCross2 } from "react-icons/rx";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
+import { clearCart } from './slice/productSlice'; 
 
 const CheckOutM = () => {
     const cartItems = useSelector((state) => state.products.carItem);
+    const dispatch = useDispatch(); 
+
     const [formData, setFormData] = useState({
         email: '',
         firstName: '',
@@ -29,10 +32,12 @@ const CheckOutM = () => {
     const subTotal = calculateTotal();
     const shipping = 50;
     const total = subTotal + shipping;
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
     const handleCheckout = (e) => {
         e.preventDefault();
         const { email, firstName, lastName, address, city, postalCode } = formData;
@@ -49,94 +54,54 @@ const CheckOutM = () => {
         setShowSuccessPopup(false);
         setShowErrorPopup(false);
     };
+    const handleContinueShopping = () => {
+        dispatch(clearCart());
+        setFormData({
+            email: '',
+            firstName: '',
+            lastName: '',
+            address: '',
+            city: '',
+            postalCode: '',
+        });
+        setShowSuccessPopup(false);
+    };
 
     return (
         <div className="py-12 lg:py-20 bg-white relative">
             <div className="container mx-auto px-4 lg:w-9/12 w-11/12">
                 <h2 className="text-[#151875] font-josefin text-[24px] font-bold mb-8">Hekto Demo</h2>
                 <div className="flex flex-col lg:flex-row gap-8">
-
-                    {/* --- Left Side: Billing Information --- */}
-                    <div className="lg:w-2/3 w-full bg-[#F8F8FD] p-6 lg:p-8 rounded-md">
+                     <div className="lg:w-2/3 w-full bg-[#F8F8FD] p-6 lg:p-8 rounded-md">
                         <h3 className="text-[#151875] font-josefin text-[18px] font-bold mb-6">Contact Information</h3>
                         <div className="flex flex-col gap-6">
-                            <div className="flex flex-col sm:flex-row gap-6">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email or mobile phone number"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                />
-                            </div>
-
+                            <input type="email" name="email" placeholder="Email or mobile phone number" value={formData.email} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
+                            
                             <div className="mt-6">
                                 <h3 className="text-[#151875] font-josefin text-[18px] font-bold mb-6">Shipping Address</h3>
                                 <div className="flex flex-col gap-6">
                                     <div className="flex flex-col sm:flex-row gap-6">
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            placeholder="First name (optional)"
-                                            value={formData.firstName}
-                                            onChange={handleInputChange}
-                                            className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                        />
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            placeholder="Last name"
-                                            value={formData.lastName}
-                                            onChange={handleInputChange}
-                                            className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                        />
+                                        <input type="text" name="firstName" placeholder="First name (optional)" value={formData.firstName} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
+                                        <input type="text" name="lastName" placeholder="Last name" value={formData.lastName} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
                                     </div>
-                                    <input
-                                        type="text"
-                                        name="address"
-                                        placeholder="Address"
-                                        value={formData.address}
-                                        onChange={handleInputChange}
-                                        className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                    />
+                                    <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
                                     <div className="flex flex-col sm:flex-row gap-6">
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            placeholder="City"
-                                            value={formData.city}
-                                            onChange={handleInputChange}
-                                            className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                        />
-                                        <input
-                                            type="text"
-                                            name="postalCode"
-                                            placeholder="Postal Code"
-                                            value={formData.postalCode}
-                                            onChange={handleInputChange}
-                                            className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"
-                                        />
+                                        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
+                                        <input type="text" name="postalCode" placeholder="Postal Code" value={formData.postalCode} onChange={handleInputChange} className="w-full bg-transparent border-b-2 border-[#BFC6E0] py-2 outline-none text-[#151875] placeholder:text-[#C1C8E1] font-lato text-[14px] focus:border-[#FB2E86] transition-colors"/>
                                     </div>
                                 </div>
                             </div>
-
-                            <button
-                                onClick={handleCheckout}
-                                className="mt-8 bg-[#FB2E86] text-white font-josefin font-bold text-[16px] px-8 py-3 rounded-[3px] hover:bg-[#F94C9B] transition-colors w-full sm:w-auto text-center"
-                            >
+                            <button onClick={handleCheckout} className="mt-8 bg-[#FB2E86] text-white font-josefin font-bold text-[16px] px-8 py-3 rounded-[3px] hover:bg-[#F94C9B] transition-colors w-full sm:w-auto text-center">
                                 Continue Shipping
                             </button>
                         </div>
                     </div>
-
-                    {/* --- Right Side: Order Summary --- */}
                     <div className="lg:w-1/3 w-full">
-                        <div className="bg-white p-6 shadow-none lg:shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)] rounded-md">
+                         <div className="bg-white p-6 shadow-none lg:shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)] rounded-md">
                             <div className="flex flex-col gap-4 border-b border-[#E1E1E4] pb-6 mb-6">
                                 {cartItems.length > 0 ? (
                                     cartItems.map((item, index) => {
-                                        const price = item.price || 0;
+                                         const price = item.price || 0;
                                         const discount = item.discountPercentage || 0;
                                         const finalPrice = price - (price * discount) / 100;
                                         return (
@@ -144,27 +109,20 @@ const CheckOutM = () => {
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-16 h-16 bg-[#F6F7FB] rounded-sm overflow-hidden flex justify-center items-center relative">
                                                         <img src={item.thumbnail} alt={item.title} className="w-full h-full object-contain" />
-                                                        <span className="absolute -top-1 -right-1 bg-[#C1C8E1] text-white text-[10px] w-4 h-4 rounded-full flex justify-center items-center">
-                                                            {item.quantity}
-                                                        </span>
+                                                        <span className="absolute -top-1 -right-1 bg-[#C1C8E1] text-white text-[10px] w-4 h-4 rounded-full flex justify-center items-center">{item.quantity}</span>
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[#000000] font-josefin text-[14px] truncate w-32">{item.title}</h4>
                                                         <p className="text-[#A1ABCC] font-josefin text-[12px]">Size: XL</p>
                                                     </div>
                                                 </div>
-                                                <span className="text-[#151875] font-josefin text-[14px] font-bold">
-                                                    ${(finalPrice * (item.quantity || 1)).toFixed(2)}
-                                                </span>
+                                                <span className="text-[#151875] font-josefin text-[14px] font-bold">${(finalPrice * (item.quantity || 1)).toFixed(2)}</span>
                                             </div>
                                         )
                                     })
-                                ) : (
-                                    <p className="text-center text-[#8A8FB9] font-lato italic">No items in cart</p>
-                                )}
+                                ) : (<p className="text-center text-[#8A8FB9] font-lato italic">No items in cart</p>)}
                             </div>
-
-                            <div className="flex flex-col gap-4 bg-[#F4F4FC] p-6 rounded-[3px]">
+                             <div className="flex flex-col gap-4 bg-[#F4F4FC] p-6 rounded-[3px]">
                                 <div className="flex justify-between items-center border-b border-[#E8E6F1] pb-3">
                                     <span className="text-[#1D3178] font-lato font-semibold text-[16px]">Subtotals:</span>
                                     <span className="text-[#151875] font-lato text-[16px]">${subTotal.toFixed(2)}</span>
@@ -177,12 +135,9 @@ const CheckOutM = () => {
                                     <span className="text-[#1D3178] font-lato font-bold text-[18px]">Total:</span>
                                     <span className="text-[#151875] font-lato font-bold text-[18px]">${total.toFixed(2)}</span>
                                 </div>
-                                <p className="text-[#8A91AB] text-[10px] mt-2 flex items-center gap-1">
-                                    <span className="w-2 h-2 rounded-full bg-[#19D16F]"></span>
-                                    Shipping & taxes calculated at checkout
-                                </p>
+                                <p className="text-[#8A91AB] text-[10px] mt-2 flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#19D16F]"></span>Shipping & taxes calculated at checkout</p>
                             </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -196,15 +151,20 @@ const CheckOutM = () => {
                         <p className="text-[#8A8FB9] font-lato text-[16px] mb-6">
                             Thank you for your order! Your order is being processed and will be completed within 3-6 hours.
                         </p>
-                        <Link to="/" className="bg-[#FB2E86] text-white font-josefin px-8 py-3 rounded hover:bg-[#F94C9B] transition-colors w-full">
+                        <button 
+                            onClick={handleContinueShopping} 
+                            className="bg-[#FB2E86] text-white font-josefin px-8 py-3 rounded hover:bg-[#F94C9B] transition-colors w-full cursor-pointer"
+                        >
                             Continue Shopping
-                        </Link>
+                        </button>
+
                         <button onClick={closePopup} className="mt-4 text-[#151875] underline text-sm hover:text-[#FB2E86]">
                             Close
                         </button>
                     </div>
                 </div>
             )}
+
             {/* --- Error Popup --- */}
             {showErrorPopup && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center px-4">
