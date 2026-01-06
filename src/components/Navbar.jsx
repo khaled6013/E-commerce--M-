@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ApiData } from './ContextApi'; 
 
+
 const Navbar = () => {
     let menu = [
         { name: 'Home', path: '/' },

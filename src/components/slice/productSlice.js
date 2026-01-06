@@ -13,7 +13,7 @@ export const productSlice = createSlice({
       if(findIndex !== -1){
         state.carItem[findIndex].quantity++
       }else{
-        state.carItem.push(action.payload)
+        state.carItem = [...state.carItem, action.payload]
       }
      }
   },

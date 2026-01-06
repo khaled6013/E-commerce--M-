@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { FaStar, FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import CartD from './CartD';
 import { AllProducts } from './slice/productSlice';
 
 const ProductsD = () => {
     let { id } = useParams();
-    let [singleProduct, setSingleProduct] = useState(null);
+    let [singleProduct, setSingleProduct] = useState({});
     let [activeImg, setActiveImg] = useState("");
     const originalPrice = singleProduct?.price || 0;
     const discount = singleProduct?.discountPercentage || 0;
@@ -16,7 +15,7 @@ const ProductsD = () => {
     const finalPrice = originalPrice - discountAmount;
     let dispatch = useDispatch();
     let handleCart = (item) => {
-        dispatch(AllProducts({...item, quantity: 1}));
+        dispatch(AllProducts({...item, quantity:1}));
     }
     let getSingleProduct = () => {
         axios.get(`https://dummyjson.com/products/${id}`)
@@ -96,7 +95,7 @@ const ProductsD = () => {
 
                             {/* Add To Cart Section */}
                             <div className="flex items-center gap-6 mb-8">
-                                <Link onClick={() => handleCart("dfhj")} to={'/cart'} className="text-[#151875] font-josefin font-bold text-[16px] px-8 py-3 bg-transparent border  border-[#151875] hover:bg-[#FB2E86] hover:text-[#FFFF] transition-all duration-300 shadow-none cursor-pointer">
+                                <Link onClick={() => handleCart(singleProduct)} to={'/cart'} className="text-[#151875] font-josefin font-bold text-[16px] px-8 py-3 bg-transparent border  border-[#151875] hover:bg-[#FB2E86] hover:text-[#FFFF] transition-all duration-300 shadow-none cursor-pointer">
                                     Add To Cart
                                 </Link>
                                 <button className="text-[#151875] hover:text-[#FB2E86] transition-colors cursor-pointer">
