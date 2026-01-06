@@ -8,18 +8,34 @@ export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-     AllProducts:(state,action)=>{
-      let findIndex = state.carItem.findIndex((item)=> item.id === action.payload.id)
-      if(findIndex !== -1){
+    AllProducts: (state, action) => {
+      let findIndex = state.carItem.findIndex((item) => item.id === action.payload.id)
+      if (findIndex !== -1) {
         state.carItem[findIndex].quantity++
-      }else{
+      } else {
         state.carItem = [...state.carItem, action.payload]
       }
-     }
+    },
+    RemoveItem: (state, action) => {
+      let filtered = state.carItem.filter((item) => item.id !== action.payload)
+      state.carItem = filtered
+    },
+    increaseQuantity: (state, action) => {
+      let findIndex = state.carItem.findIndex((item) => item.id === action.payload)
+      if (findIndex !== -1) {
+        state.carItem[findIndex].quantity++
+      }
+    },
+    decreaseQuantity: (state, action) => {
+      let findIndex = state.carItem.findIndex((item) => item.id === action.payload)
+      if (findIndex !== -1 && state.carItem[findIndex].quantity > 1) {
+        state.carItem[findIndex].quantity--
+      }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { AllProducts } = productSlice.actions
+export const { AllProducts, RemoveItem, increaseQuantity, decreaseQuantity } = productSlice.actions
 
 export default productSlice.reducer
