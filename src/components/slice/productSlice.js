@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: 'hello redux',
+  carItem: [],
 }
 
 export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-     AllProducts:(state)=>{
-      
+     AllProducts:(state,action)=>{
+      let findIndex = state.carItem.findIndex((item)=> item.id === action.payload.id)
+      if(findIndex !== -1){
+        state.carItem[findIndex].quantity++
+      }else{
+        state.carItem.push(action.payload)
+      }
      }
   },
 })
