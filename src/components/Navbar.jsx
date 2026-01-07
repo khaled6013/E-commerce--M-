@@ -44,7 +44,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className='lg:py-4 py-2 bg-white relative z-50'>
+        <nav className='lg:py-4 py-2 bg-white sticky top-0 z-50'>
             <div className="lg:w-9/12 w-11/12 mx-auto relative">
                 <div className="flex justify-between items-center">
                     
