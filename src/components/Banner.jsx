@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import banImg from '../assets/image/bannerHome.png'
 
 const Banner = () => {
@@ -6,7 +7,9 @@ const Banner = () => {
     <>
       <section className='w-full'>
         <div className="">
-          <img className='w-full object-cover lg:h-175' src={banImg} alt="banner" />
+          <Link to='/shop'>
+            <img className='w-full object-cover lg:h-175' src={banImg} alt="banner" />
+          </Link>
         </div>
       </section>
     </>
