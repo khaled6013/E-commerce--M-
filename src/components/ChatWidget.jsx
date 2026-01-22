@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenerativeAI } from "@google/generative-ai"; 
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai"; 
 import { FaComments, FaTimes, FaPaperPlane, FaRobot } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,6 +11,7 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
   const GEMINI_API_KEY = import.meta.env.VITE_API_KEY;
 
   const scrollToBottom = () => {
@@ -23,15 +24,31 @@ const ChatWidget = () => {
 
   const handleSend = async () => {
     if (!input.trim()) return;
-    
+
+    if (!GEMINI_API_KEY) {
+      console.error("API Key পাওয়া যায়নি! .env ফাইল চেক করুন।");
+      setMessages((prev) => [...prev, { text: "API Key এরর।", sender: "bot" }]);
+      return;
+    }
+
     const userText = input;
     setInput(""); 
+    
     setMessages((prev) => [...prev, { text: userText, sender: "user" }]);
     setIsLoading(true);
 
     try {
       const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ 
+        model: "gemini-2.5-flash", 
+        safetySettings: [
+          {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+          },
+        ]
+      });
+
       const chatHistory = messages.slice(1).map(msg => ({
         role: msg.sender === "user" ? "user" : "model",
         parts: [{ text: msg.text }]
@@ -41,7 +58,7 @@ const ChatWidget = () => {
         history: [
             {
                 role: "user",
-                parts: [{ text: "You are a helpful customer support assistant for an e-commerce website named 'Hekto'. You answer concisely and politely. You can answer in Bengali or English depending on the user's language." }],
+                parts: [{ text: "You are a helpful customer support assistant for an e-commerce website named 'Hekto'. Answer concisely. You can answer in Bengali or English." }],
             },
             {
                 role: "model",
@@ -60,8 +77,16 @@ const ChatWidget = () => {
       }
 
     } catch (error) {
-      console.error("Chat Error:", error);
-      setMessages((prev) => [...prev, { text: "দুঃখিত, বর্তমানে একটি যান্ত্রিক ত্রুটি হচ্ছে। কিছুক্ষণ পর আবার চেষ্টা করুন।", sender: "bot" }]);
+      console.error("Chat Error Details:", error);
+      let errorMessage = "দুঃখিত, একটু সমস্যা হচ্ছে। দয়া করে আবার চেষ্টা করুন।";
+      
+      if (error.message.includes("404")) {
+        errorMessage = "মডেল লোড হতে সমস্যা হচ্ছে (404)।";
+      } else if (error.message.includes("API key")) {
+        errorMessage = "API Key ঠিক নেই।";
+      }
+
+      setMessages((prev) => [...prev, { text: errorMessage, sender: "bot" }]);
     } finally {
       setIsLoading(false);
     }
@@ -97,6 +122,7 @@ const ChatWidget = () => {
                 <FaTimes />
               </button>
             </div>
+
             <div className="flex-1 p-4 overflow-y-auto bg-[#F6F5FF] flex flex-col gap-4 custom-scrollbar">
               {messages.map((msg, index) => (
                 <div 
@@ -125,6 +151,7 @@ const ChatWidget = () => {
               )}
               <div ref={messagesEndRef} />
             </div>
+
             <div className="p-3 bg-white border-t border-gray-100">
               <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200 focus-within:border-[#FB2E86] transition-all duration-200">
                 <input
@@ -154,6 +181,7 @@ const ChatWidget = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
